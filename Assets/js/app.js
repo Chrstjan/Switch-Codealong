@@ -73,6 +73,7 @@ function sortCategory() {
       case "womens-jewellery":
       case "sunglasses": {
         accessoriesArray.push(category);
+        break;
       }
 
       default: {
@@ -117,13 +118,17 @@ function buildNavigation(navigationData) {
   navigationData.forEach((supCategory) => {
     let subCategories = "<ul>";
     supCategory.subCategories.forEach((subCategory) => {
-      let listElement = `<li><div>${subCategory}</div></li>`;
+      let listElement = `<li><div onclick="navCallback('${subCategory}')">${subCategory}</div></li>`;
       subCategories += listElement;
     });
     subCategories += "</ul>";
 
-    let supHTML = `<div><h3>${supCategory.supCategoryName}</h3></div>`;
+    let supHTML = `<div><h3 onclick="navCallback('${supCategory.supCategoryName}')">${supCategory.supCategoryName}</h3>${subCategories}</div>`;
 
     categoryContainer.innerHTML += supHTML;
   });
+}
+
+function navCallback(clickedItem) {
+  console.log(clickedItem);
 }
