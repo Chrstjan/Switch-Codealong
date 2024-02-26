@@ -3,60 +3,127 @@ const categoryContainer = document.getElementById("category-container");
 sortCategory();
 
 function sortCategory() {
-    let allCategories = [
-        "smartphones",
-        "laptops",
-        "fragrances",
-        "skincare",
-        "groceries",
-        "home-decoration",
-        "furniture",
-        "tops",
-        "womens-dresses",
-        "womens-shoes",
-        "mens-shirts",
-        "mens-shoes",
-        "mens-watches",
-        "womens-watches",
-        "womens-bags",
-        "womens-jewellery",
-        "sunglasses",
-        "automotive",
-        "motorcycle",
-        "lighting"
-      ]
-    
-      let eletronicsArray = [];
-      let fortniteArray = [];
-    
-      allCategories.forEach(category => {
-        switch(category) {
-            case "smartphones":
-            case "laptops": {
-                eletronicsArray.push(category);
-                break;
-            }
-    
-            default: {
-                fortniteArray.push(category);
-                break;
-            }
-        }
-      });
+  let allCategories = [
+    "smartphones",
+    "laptops",
+    "fragrances",
+    "skincare",
+    "groceries",
+    "home-decoration",
+    "furniture",
+    "tops",
+    "womens-dresses",
+    "womens-shoes",
+    "mens-shirts",
+    "mens-shoes",
+    "mens-watches",
+    "womens-watches",
+    "womens-bags",
+    "womens-jewellery",
+    "sunglasses",
+    "automotive",
+    "motorcycle",
+    "lighting",
+  ];
 
-      const ulElement = document.createElement("ul");
+  let eletronicsArray = [];
+  let cosmeticsArray = [];
+  let homeDecorArray = [];
+  let womensClothesArray = [];
+  let mensClothesArray = [];
+  let accessoriesArray = [];
+  let fortniteArray = [];
 
-      const categoryElements = `
-      <h3>Eletronics</h3>
-      <li>${eletronicsArray}</li>
-      <h3>Fornite</h3>
-      <li>${fortniteArray}</li>`;
+  allCategories.forEach((category) => {
+    switch (category) {
+      case "smartphones":
+      case "laptops": {
+        eletronicsArray.push(category);
+        break;
+      }
 
-      ulElement.innerHTML += categoryElements;
+      case "fragrances":
+      case "skincare": {
+        cosmeticsArray.push(category);
+        break;
+      }
 
-      categoryContainer.appendChild(ulElement);
-      console.log("eletronicsArray");
-      console.log(eletronicsArray);
-      console.log("fortniteArray");
-      console.log(fortniteArray);
+      case "home-decoration":
+      case "furniture":
+      case "lighting": {
+        homeDecorArray.push(category);
+        break;
+      }
+
+      case "womens-dresses":
+      case "womens-shoes": {
+        womensClothesArray.push(category);
+        break;
+      }
+
+      case "mens-shirts":
+      case "mens-shoes": {
+        mensClothesArray.push(category);
+        break;
+      }
+
+      case "mens-watches":
+      case "womens-watches":
+      case "womens-bags":
+      case "womens-jewellery":
+      case "sunglasses": {
+        accessoriesArray.push(category);
+      }
+
+      default: {
+        fortniteArray.push(category);
+        break;
+      }
+    }
+  });
+
+  let navigationArray = [
+    {
+      supCategoryName: "Eletronics",
+      subCategories: eletronicsArray,
+    },
+    {
+      supCategoryName: "Cosmetics",
+      subCategories: cosmeticsArray,
+    },
+    {
+      supCategoryName: "Decor",
+      subCategories: homeDecorArray,
+    },
+    {
+      supCategoryName: "Clothes",
+      subCategories: [womensClothesArray, mensClothesArray],
+    },
+    {
+      supCategoryName: "Accessories",
+      subCategories: accessoriesArray,
+    },
+    {
+      supCategoryName: "Fortnite",
+      subCategories: fortniteArray,
+    },
+  ];
+  buildNavigation(navigationArray);
+}
+
+function buildNavigation(navigationData) {
+  console.log(navigationData);
+
+  navigationData.forEach((supCategory) => {
+    let subCategories = "<ul>";
+    supCategory.subCategories.forEach((subCategory) => {
+      let listElement = `<li><div>${subCategory}</div></li>`;
+      subCategories += listElement;
+    });
+    subCategories += "</ul>";
+
+    let supHTML = `<div><h3>${supCategory.supCategoryName}</h3></div>`;
+
+    categoryContainer.innerHTML += supHTML;
+  });
 }
