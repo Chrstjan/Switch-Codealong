@@ -55,5 +55,7 @@ let allCategories = [
     }
   })
 
+  console.log("eletronicsArray");
   console.log(eletronicsArray);
+  console.log("fortniteArray");
   console.log(fortniteArray);
